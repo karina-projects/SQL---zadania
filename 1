@@ -1,0 +1,77 @@
+-- 1. Pobierz wszystkie adresy email pracowników
+SELECT email FROM employees;
+
+-- 2. Pobierz id, imię i nazwisko pracowników
+SELECT id, first_name, last_name FROM employees;
+
+-- 3. Pobierz id i email, nadając aliasy kolumnom
+SELECT id AS employee_id, email AS private_email FROM employees;
+
+-- 4. Pobierz unikalne imiona pracowników
+SELECT DISTINCT first_name FROM employees;
+
+-- 5. Pobierz wszystkich pracowników o imieniu Tom
+SELECT * FROM employees
+WHERE first_name = "Tom";
+
+-- 6. Policz ilu jest unikalnych pracowników wg imienia
+SELECT COUNT(DISTINCT first_name) AS number_of_employees
+FROM employees;
+
+-- 7. Pobierz pracowników zatrudnionych po 1 stycznia 2019
+SELECT * FROM employees
+WHERE hire_date > "2019-01-01";
+
+-- 8. Pobierz tytuły stanowisk, gdzie min. pensja < 5000
+SELECT title FROM jobs WHERE min_salary < 5000;
+
+-- 9. Pobierz pracownika o imieniu Adam i nazwisku Irwin
+SELECT * FROM employees WHERE first_name = "Adam" AND last_name ="Irwin";
+
+-- 10. Pobierz pracowników o imieniu Tom lub John
+SELECT * FROM employees WHERE first_name = "Tom" OR first_name = "John";
+
+-- 11. Pobierz pracowników o nazwisku Martinez urodzonych po 1988-01-01
+SELECT * FROM employees WHERE last_name = "Martinez" AND birth_date > "1988-01-01";
+
+-- 12. Pobierz pracowników, którzy nie są w dziale 3
+SELECT * FROM employees WHERE department_id != "3";
+
+-- 13. Pobierz pracowników z działu 6 i job_id w (2,4)
+SELECT * FROM employees WHERE department_id = "6" AND job_id IN (2,4);
+
+-- 14. Pobierz pracowników z działu 3, ale nie z job_id = 2
+SELECT * FROM employees WHERE department_id="3" AND job_id != "2";
+
+-- 15. Pobierz tytuł stanowiska i widełki płacowe, posortowane malejąco po min_salary, max_salary
+SELECT title, min_salary, max_salary FROM jobs ORDER BY min_salary DESC, max_salary DESC;
+
+-- 16. Pobierz stanowiska, gdzie min_salary = 3000, posortowane rosnąco po max_salary
+SELECT title, min_salary, max_salary FROM jobs WHERE min_salary= "3000" ORDER BY max_salary ASC;
+
+-- 17. Pobierz lokalizacje, gdzie brak adresu (NULL)
+SELECT * FROM locations WHERE street_address IS NULL;
+
+-- 18. Pobierz pierwsze 3 rekordy z employees
+SELECT * FROM employees LIMIT 3;
+
+-- 19. Pobierz 5 ostatnio zatrudnionych w dziale 3
+SELECT * FROM employees WHERE department_id = 3 ORDER BY hire_date DESC LIMIT 5;
+
+-- 20. Najstarszy pracownik (najwcześniejsza data urodzenia)
+SELECT birth_date AS oldest_employee FROM employees ORDER BY birth_date ASC LIMIT 1;
+
+-- 21. Najmłodszy pracownik w dziale 2
+SELECT birth_date AS youngest_employee_department_2 FROM employees WHERE department_id = 2 LIMIT 1;
+
+-- 22. Ostatnio zatrudniony pracownik (imię + nazwisko)
+SELECT first_name, last_name FROM employees ORDER BY hire_date DESC LIMIT 1;
+
+-- 23. Liczba pracowników z job_id = 2 (np. Software Engineer)
+SELECT COUNT(*) AS number_of_software_engineers FROM employees WHERE job_id = 2;
+
+-- 24. Pobierz stanowiska zaczynające się od „hr”
+SELECT * FROM jobs WHERE title LIKE 'hr%';
+
+-- 25. Pobierz stanowiska zawierające słowo „Software”
+SELECT * FROM jobs WHERE title LIKE '%Software%';
